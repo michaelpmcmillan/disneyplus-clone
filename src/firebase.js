@@ -1,7 +1,7 @@
 import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth'
 import { getFirestore } from 'firebase/firestore/lite';
-import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { GoogleAuthProvider, signInWithPopup, signOut } from "firebase/auth";
 
 const firebaseConfig = {
   apiKey: "AIzaSyA2aqAdj4gQ_kiLJ3nQN5g5fYRIaAZuxjo",
@@ -20,6 +20,7 @@ const auth = getAuth();
 export {
     auth,
     signInWithPopup,
+    signOut,
     provider
 };
 export default db;

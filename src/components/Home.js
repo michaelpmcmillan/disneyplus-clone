@@ -1,7 +1,10 @@
 import styled from "styled-components";
+import ImageSlider from "./ImageSlider";
 
 const Home = (props) => {
-    return <Container>Home</Container>;
+    return <Container>
+        <ImageSlider/>
+    </Container>;
 };
 
 const Container = styled.main`

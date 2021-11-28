@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { auth, signInWithPopup, provider} from '../firebase';
@@ -11,9 +12,18 @@ import {
 
 const Header = (props) => {
     const dispatch = useDispatch();
-    const history = useNavigate();
+    const navigate = useNavigate();
     const userName = useSelector(selectUserName);
     const userPhoto = useSelector(selectUserPhoto);
+
+    useEffect(() => {
+        auth.onAuthStateChanged(async (user) => {
+            if (user) {
+                setUser(user);
+                navigate('/home');
+            }
+        })
+    }, [userName]);
 
     const handleAuth = () => {
         signInWithPopup(auth, provider).then((result) => {

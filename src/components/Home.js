@@ -1,6 +1,9 @@
 import styled from "styled-components";
 import ImageSlider from "./ImageSlider";
+import NewDisney from "./NewDisney";
+import Originals from "./Originals";
 import Recommends from "./Recommends";
+import Trending from "./Trending";
 import Viewers from "./Viewers";
 
 const Home = (props) => {
@@ -9,6 +12,9 @@ const Home = (props) => {
             <ImageSlider />
             <Viewers />
             <Recommends />
+            <NewDisney />
+            <Originals />
+            <Trending />
         </Container>
     );
 };
@@ -20,7 +26,7 @@ const Container = styled.main`
     display: block;
     top: 72px;
     padding: 0 calc(3.5vw + 5px);
-    
+
     &:after {
         background: url("/images/home-background.png") center center / cover
           no-repeat fixed;

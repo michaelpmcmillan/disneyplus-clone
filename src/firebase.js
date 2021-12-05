@@ -1,6 +1,6 @@
 import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth'
-import { getFirestore } from 'firebase/firestore/lite';
+import { getFirestore, doc, collection, getDocs } from 'firebase/firestore/lite';
 import { GoogleAuthProvider, signInWithPopup, signOut } from "firebase/auth";
 
 const firebaseConfig = {
@@ -17,10 +17,20 @@ const db = getFirestore(app);
 const provider = new GoogleAuthProvider();
 const auth = getAuth();
 
+const getDoc = (docPath) => {
+  return doc(db, docPath);
+};
+
+const getAllDocs = async (collectionName) => {
+  return getDocs(collection(db, collectionName));
+};
+
 export {
     auth,
     signInWithPopup,
     signOut,
-    provider
+    provider,
+    getDoc,
+    getAllDocs
 };
 export default db;

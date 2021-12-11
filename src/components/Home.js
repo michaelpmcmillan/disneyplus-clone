@@ -22,7 +22,6 @@ const Home = (props) => {
         let trendingDocs = [];
         getAllDocs('movies')
             .then((docs) => {
-                console.log(docs);
                 docs.forEach(doc => {
                     switch(doc.data().type) {
                         case 'recommend': 

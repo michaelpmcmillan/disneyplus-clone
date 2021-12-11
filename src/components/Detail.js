@@ -1,20 +1,39 @@
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import styled from "styled-components";
+import { getSpecificDoc } from '../firebase'
+
 
 const Detail = (props) => {
+    const { id } = useParams();
+    const [detailData, setDetailData] = useState([]);
+
+    useEffect(() => {
+        getSpecificDoc('movies', id)
+            .then((doc) => {
+                if (doc.exists()) {
+                    setDetailData(doc.data());
+                } else {
+                    console.log(`no such document (movies/${id}) in firebase`);
+                }
+            })
+            .catch((error) => {
+                console.log('error getting documents', error);
+            });
+    }, [id]);
+
     return (
         <Container>
             <Background>
                 <img
-                    src='https://prod-ripcut-delivery.disney-plus.net/v1/variant/disney/4E9E81584305009D6385F6178D4B6930E97CD6EC4A3B53C818400DEF778FFA9A/scale?width=1440&aspectRatio=1.78&format=jpeg'
-                    alt=''
-                />
+                    src={detailData.backgroundImg}
+                    alt={detailData.title} />
             </Background>
 
             <ImageTitle>
                 <img
-                    src='https://prod-ripcut-delivery.disney-plus.net/v1/variant/disney/50B933E83609BEEFEDFA177A6D96DBFA7804C14F70A0B5AB314E892E65498ACF/scale?width=1440&aspectRatio=1.78'
-                    alt=''
-                />
+                    src={detailData.titleImg}
+                    alt={detailData.title} />
             </ImageTitle>
 
             <ContentMeta>
@@ -40,12 +59,8 @@ const Detail = (props) => {
                         </div>
                     </GroupWatch>
                 </Controls>
-                <SubTitle>
-                    SubTitle
-                </SubTitle>
-                <Description>
-                    Description
-                </Description>
+                <SubTitle>{detailData.subTitle}</SubTitle>
+                <Description>{detailData.description}</Description>
             </ContentMeta>
         </Container>
     );
